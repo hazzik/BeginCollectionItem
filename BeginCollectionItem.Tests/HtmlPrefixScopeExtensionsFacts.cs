@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NUnit.Framework;
 using Should;
 
 namespace HtmlHelpers.BeginCollectionItem.Tests
 {
-    // ReSharper disable UnusedMember.Global
     public static class HtmlPrefixScopeExtensionsFacts
-    // ReSharper restore UnusedMember.Global
     {
-        [TestFixture, TestClass]
+        [TestFixture]
         public class TheBeginCollectionItemMethod
         {
-            [Test, TestMethod]
+            [Test]
             public void WritesCollectionIndexHiddenInput_WhenThereIsNothingInRequestData()
             {
                 const string collectionName = "CollectionName";
@@ -49,7 +46,7 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
                 text.ShouldContain(@""" />");
             }
 
-            [Test, TestMethod]
+            [Test]
             public void WritesExpectedCollectionIndexHiddenInput_WhenThereIsAnIndexInRequestData()
             {
                 const string collectionName = "CollectionName";
@@ -86,10 +83,10 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
             }
         }
 
-        [TestFixture, TestClass]
+        [TestFixture]
         public class TheBeginCollectionItemMethodOverload
         {
-            [Test, TestMethod]
+            [Test]
             public void WritesCollectionIndexHiddenInput_WhenThereIsNothingInRequestData()
             {
                 const string collectionName = "CollectionName";
@@ -121,7 +118,7 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
                 text.ShouldContain(@""" />");
             }
 
-            [Test, TestMethod]
+            [Test]
             public void WritesExpectedCollectionIndexHiddenInput_WhenThereIsAnIndexInRequestData()
             {
                 const string collectionName = "CollectionName";
@@ -158,10 +155,10 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
             }
         }
 
-        [TestFixture, TestClass]
+        [TestFixture]
         public class TheBeginHtmlFieldPrefixScopeMethod
         {
-            [Test, TestMethod]
+            [Test]
             public void Returns_IDisposable()
             {
                 var viewContext = new ViewContext();
@@ -175,7 +172,7 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
                 }
             }
 
-            [Test, TestMethod]
+            [Test]
             public void Wraps_HtmlHelper_ViewData_TemplateInfo()
             {
                 var viewContext = new ViewContext();
@@ -193,7 +190,7 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
                 }
             }
 
-            [Test, TestMethod]
+            [Test]
             public void Changes_HtmlHelper_ViewData_TemplateInfo_HtmlFieldPrefix_WhenUsed()
             {
                 const string nextFieldPrefix = "InnerItems";
@@ -214,7 +211,7 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
                 }
             }
 
-            [Test, TestMethod]
+            [Test]
             public void Restores_HtmlHelper_ViewData_TemplateInfo_HtmlFieldPrefix_WhenDisposed()
             {
                 const string nextFieldPrefix = "InnerItems";
