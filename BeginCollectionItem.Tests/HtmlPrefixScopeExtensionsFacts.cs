@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using Should;
 
 namespace HtmlHelpers.BeginCollectionItem.Tests
 {
@@ -34,16 +33,15 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
 
                 using (var result = html.BeginCollectionItem(collectionName))
                 {
-                    result.ShouldNotBeNull();
+                    Assert.That(result, Is.Not.Null);
                 }
 
                 var text = writer.ToString();
-                text.ShouldNotBeNull();
-                text.ShouldNotBeEmpty();
-                text.ShouldStartWith(string.Format(
-                    @"<input type=""hidden"" name=""{0}.index"" autocomplete=""off"" value=""",
-                        collectionName));
-                text.ShouldContain(@""" />");
+                Assert.That(text,
+                            Is.Not.Null
+                              .And.Not.Empty
+                              .And.StartsWith(string.Format(@"<input type=""hidden"" name=""{0}.index"" autocomplete=""off"" value=""", collectionName))
+                              .And.Contains(@""" />"));
             }
 
             [Test]
@@ -71,15 +69,14 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
 
                 using (var result = html.BeginCollectionItem(collectionName))
                 {
-                    result.ShouldNotBeNull();
+                    Assert.That(result, Is.Not.Null);
                 }
 
                 var text = writer.ToString();
-                text.ShouldNotBeNull();
-                text.ShouldNotBeEmpty();
-                text.ShouldStartWith(string.Format(
-                    @"<input type=""hidden"" name=""{0}.index"" autocomplete=""off"" value=""{1}"" />",
-                        collectionName, index0));
+                Assert.That(text,
+                            Is.Not.Null
+                              .And.Not.Empty
+                              .And.StringStarting(string.Format(@"<input type=""hidden"" name=""{0}.index"" autocomplete=""off"" value=""{1}"" />", collectionName, index0)));
             }
         }
 
@@ -106,16 +103,15 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
 
                 using (var result = html.BeginCollectionItem(collectionName, html.ViewContext.Writer))
                 {
-                    result.ShouldNotBeNull();
+                    Assert.That(result, Is.Not.Null);
                 }
 
                 var text = writer.ToString();
-                text.ShouldNotBeNull();
-                text.ShouldNotBeEmpty();
-                text.ShouldStartWith(string.Format(
-                    @"<input type=""hidden"" name=""{0}.index"" autocomplete=""off"" value=""",
-                        collectionName));
-                text.ShouldContain(@""" />");
+                Assert.That(text,
+                            Is.Not.Null
+                              .And.Not.Empty
+                              .And.StringStarting(string.Format(@"<input type=""hidden"" name=""{0}.index"" autocomplete=""off"" value=""", collectionName))
+                              .And.Contains(@""" />"));
             }
 
             [Test]
@@ -143,15 +139,14 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
 
                 using (var result = html.BeginCollectionItem(collectionName, html.ViewContext.Writer))
                 {
-                    result.ShouldNotBeNull();
+                    Assert.That(result, Is.Not.Null);
                 }
 
                 var text = writer.ToString();
-                text.ShouldNotBeNull();
-                text.ShouldNotBeEmpty();
-                text.ShouldStartWith(string.Format(
-                    @"<input type=""hidden"" name=""{0}.index"" autocomplete=""off"" value=""{1}"" />",
-                        collectionName, index0));
+                Assert.That(text,
+                            Is.Not.Null
+                              .And.Not.Empty
+                              .And.StartsWith(string.Format(@"<input type=""hidden"" name=""{0}.index"" autocomplete=""off"" value=""{1}"" />", collectionName, index0)));
             }
         }
 
@@ -167,8 +162,9 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
                 using (var result = html.BeginHtmlFieldPrefixScope(string.Empty)
                     as HtmlPrefixScopeExtensions.HtmlFieldPrefixScope)
                 {
-                    result.ShouldNotBeNull();
-                    result.ShouldImplement<IDisposable>();
+                    Assert.That(result,
+                                Is.Not.Null
+                                  .And.InstanceOf<IDisposable>());
                 }
             }
 
@@ -181,12 +177,10 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
                 using (var result = html.BeginHtmlFieldPrefixScope(string.Empty)
                     as HtmlPrefixScopeExtensions.HtmlFieldPrefixScope)
                 {
-                    result.ShouldNotBeNull();
-                    // ReSharper disable PossibleNullReferenceException
-                    result.TemplateInfo.ShouldNotBeNull();
-                    // ReSharper restore PossibleNullReferenceException
-                    result.TemplateInfo.ShouldEqual(html.ViewData.TemplateInfo);
-
+                    Assert.That(result, Is.Not.Null);
+                    Assert.That(result.TemplateInfo,
+                                Is.Not.Null
+                                  .And.EqualTo(html.ViewData.TemplateInfo));
                 }
             }
 
@@ -202,12 +196,11 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
                 using (var result = html.BeginHtmlFieldPrefixScope(nextFieldPrefix)
                     as HtmlPrefixScopeExtensions.HtmlFieldPrefixScope)
                 {
-                    result.ShouldNotBeNull();
-                    // ReSharper disable PossibleNullReferenceException
-                    result.PreviousHtmlFieldPrefix.ShouldNotBeNull();
-                    // ReSharper restore PossibleNullReferenceException
-                    result.PreviousHtmlFieldPrefix.ShouldEqual(prevFieldPrefix);
-                    html.ViewData.TemplateInfo.HtmlFieldPrefix.ShouldEqual(nextFieldPrefix);
+                    Assert.That(result, Is.Not.Null);
+                    Assert.That(result.PreviousHtmlFieldPrefix,
+                                Is.Not.Null
+                                  .And.EqualTo(prevFieldPrefix));
+                    Assert.That(html.ViewData.TemplateInfo.HtmlFieldPrefix, Is.EqualTo(nextFieldPrefix));
                 }
             }
 
@@ -223,9 +216,9 @@ namespace HtmlHelpers.BeginCollectionItem.Tests
                 using (var result = html.BeginHtmlFieldPrefixScope(nextFieldPrefix)
                     as HtmlPrefixScopeExtensions.HtmlFieldPrefixScope)
                 {
-                    result.ShouldNotBeNull();
+                    Assert.That(result, Is.Not.Null);
                 }
-                html.ViewData.TemplateInfo.HtmlFieldPrefix.ShouldEqual(prevFieldPrefix);
+                Assert.That(html.ViewData.TemplateInfo.HtmlFieldPrefix, Is.EqualTo(prevFieldPrefix));
             }
         }
 
