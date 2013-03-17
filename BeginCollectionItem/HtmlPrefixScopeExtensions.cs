@@ -45,13 +45,13 @@ namespace HtmlHelpers.BeginCollectionItem
             // We need to use the same sequence of IDs following a server-side validation failure,
             // otherwise the framework won't render the validation error messages next to each item.
             var key = IdsToReuseKey + collectionName;
-            var queue = (Queue<string>)httpContext.Items[key];
-            if (queue == null) {
-                httpContext.Items[key] = queue = new Queue<string>();
+            var queue = httpContext.Items[key] as Queue<string>;
+            if (queue == null)
+            {
                 var previouslyUsedIds = httpContext.Request[collectionName + ".index"];
-                if (!string.IsNullOrEmpty(previouslyUsedIds))
-                    foreach (var previouslyUsedId in previouslyUsedIds.Split(','))
-                        queue.Enqueue(previouslyUsedId);
+                httpContext.Items[key] = queue = !string.IsNullOrEmpty(previouslyUsedIds)
+                                                     ? new Queue<string>(previouslyUsedIds.Split(','))
+                                                     : new Queue<string>();
             }
             return queue;
         }
