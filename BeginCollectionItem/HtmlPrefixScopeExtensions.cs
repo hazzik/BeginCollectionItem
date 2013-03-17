@@ -10,6 +10,11 @@ namespace HtmlHelpers.BeginCollectionItem
     {
         private const string IdsToReuseKey = "__htmlPrefixScopeExtensions_IdsToReuse_";
 
+        public static IDisposable BeginCollectionItem(this HtmlHelper html)
+        {
+            return BeginCollectionItem(html, html.ViewData.TemplateInfo.HtmlFieldPrefix);
+        }
+
         public static IDisposable BeginCollectionItem(this HtmlHelper html, string collectionName)
         {
             return BeginCollectionItem(html, collectionName, html.ViewContext.Writer);
